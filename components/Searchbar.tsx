@@ -1,7 +1,7 @@
 import { Button, Input } from "@chakra-ui/react";
 import { css } from "@emotion/css";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export const Searchbar = () => {
   const router = useRouter();
@@ -11,12 +11,13 @@ export const Searchbar = () => {
   const onSearchChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchTerm(e.target.value);
 
-  const onSearchClick = () => {
+  const onFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
     router.push(`/dog?breed=${searchTerm.trim()}`);
   };
 
   return (
-    <div className={searchContainer}>
+    <form onSubmit={onFormSubmit} className={searchContainer}>
       <Input
         color="white"
         focusBorderColor="none"
@@ -25,10 +26,10 @@ export const Searchbar = () => {
         value={searchTerm}
         onChange={onSearchChange}
       />
-      <Button onClick={onSearchClick} size="lg" colorScheme="pink">
+      <Button type="submit" size="lg" colorScheme="pink">
         Search!
       </Button>
-    </div>
+    </form>
   );
 };
 

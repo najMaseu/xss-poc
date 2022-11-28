@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider>
       <div
         className={css({
-          label: "chuj",
           width: "100vw",
           height: "100vh",
           display: "flex",

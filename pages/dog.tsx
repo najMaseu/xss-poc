@@ -7,19 +7,16 @@ import { useRouter } from "next/router";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { breed } = context.query;
 
-  if ((breed as string)?.split("")[0] === "%") {
-    return {
-      props: { url: "chuj", status: "success" },
-    };
-  }
-
-  // const res = await fetch(`https://dog.cseo/api/breed/${breed.trim().toLowerCase()}/images/random`);
-  // const data: { message: string; status: "success" | "error" } =
-  //   await res.json();
+  const res = await fetch(
+    `https://dog.ceo/api/breed/${(breed as string)
+      .trim()
+      .toLowerCase()}/images/random`
+  );
+  const data: { message: string; status: "success" | "error" } =
+    await res.json();
 
   return {
-    // props: { url: data.message, status: data.status },
-    props: { url: "chuj", status: "success" },
+    props: { url: data.message, status: data.status },
   };
 };
 
